@@ -1,85 +1,92 @@
 ---
 const services = [
 	{
-		icon: '🏠',
+		image: '/images/physio_homevisit.png',
 		title: 'Home Visit Physiotherapy',
 		desc: 'Professional physiotherapy treatment delivered at your doorstep. Comfortable, convenient, and personalized.',
 		highlight: true,
 	},
 	{
-		icon: '🩹',
+		image: '/images/physio_ortho.png',
 		title: 'Post-Surgery Rehabilitation',
 		desc: 'Structured recovery programs after joint replacement, ACL repair, spinal surgery, and more.',
 	},
 	{
-		icon: '🔙',
+		image: '/images/physio_neuro.png',
 		title: 'Back & Neck Pain Management',
 		desc: 'Manual therapy, posture correction, and strengthening exercises for chronic and acute pain.',
 	},
 	{
-		icon: '⚽',
+		image: '/images/physio_ortho.png',
 		title: 'Sports Injury Recovery',
 		desc: 'Return-to-sport programs with progressive strengthening, flexibility, and functional training.',
 	},
 	{
-		icon: '👴',
+		image: '/images/physio_geriatric.png',
 		title: 'Geriatric Mobility Care',
 		desc: 'Fall prevention, balance training, and gentle exercise programs for elderly patients.',
 	},
 	{
-		icon: '🧠',
+		image: '/images/physio_neuro.png',
 		title: 'Neurological Rehabilitation',
 		desc: 'Stroke recovery, nerve palsy treatment, and neurological movement re-education.',
 	},
 ];
 ---
 
-<section id="services" class="py-24 bg-stone-50">
-	<div class="max-w-7xl mx-auto px-6">
+<section id="services" class="py-24 bg-stone-50 relative overflow-hidden">
+	<!-- Background decoration -->
+	<div class="absolute bottom-0 left-0 w-80 h-80 bg-teal-100/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3"></div>
+
+	<div class="max-w-7xl mx-auto px-6 relative z-10">
 		<div class="text-center mb-16">
-			<p class="text-sm uppercase tracking-widest text-teal-600 font-semibold mb-3">What I Offer</p>
-			<h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Services</h2>
-			<p class="text-gray-500 max-w-2xl mx-auto">
+			<p class="reveal reveal-up text-sm uppercase tracking-widest text-teal-600 font-semibold mb-3">What I Offer</p>
+			<h2 class="reveal reveal-up text-4xl md:text-5xl font-extrabold text-gray-900 mb-4" style="animation-delay:0.1s">Services</h2>
+			<p class="reveal reveal-up text-gray-500 max-w-2xl mx-auto" style="animation-delay:0.2s">
 				Comprehensive physiotherapy services tailored to your needs. Available for both clinic
 				and home visits across Lucknow.
 			</p>
 		</div>
 
-		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-			{services.map(service => (
-				<div class={`group relative bg-white rounded-2xl p-8 border transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
+		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stacked-cards">
+			{services.map((service, i) => (
+				<div class={`reveal reveal-up service-card group relative bg-white rounded-2xl overflow-hidden border transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 ${
 					service.highlight
 						? 'border-teal-200 shadow-lg shadow-teal-50 ring-1 ring-teal-100'
-						: 'border-gray-100 hover:border-teal-100'
-				}`}>
+						: 'border-gray-100 hover:border-teal-100 shadow-sm'
+				}`} style={`animation-delay:${0.1 * (i + 1)}s`}>
 					{service.highlight && (
-						<div class="absolute -top-3 left-6">
-							<span class="bg-teal-600 text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full">
+						<div class="absolute top-4 right-4 z-10">
+							<span class="bg-gradient-to-r from-teal-600 to-teal-700 text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 rounded-full shadow-lg">
 								Most Popular
 							</span>
 						</div>
 					)}
 
-					<div class="w-14 h-14 bg-teal-50 group-hover:bg-teal-100 rounded-2xl flex items-center justify-center mb-6 transition-colors">
-						<span class="text-2xl">{service.icon}</span>
+					<!-- Service Image -->
+					<div class="h-48 overflow-hidden relative">
+						<img src={service.image} alt={service.title} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+						<div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
 					</div>
 
-					<h3 class="font-heading font-bold text-gray-900 text-lg mb-3">{service.title}</h3>
-					<p class="text-gray-400 text-sm leading-relaxed mb-6">{service.desc}</p>
+					<div class="p-6">
+						<h3 class="font-heading font-bold text-gray-900 text-lg mb-3">{service.title}</h3>
+						<p class="text-gray-400 text-sm leading-relaxed mb-6">{service.desc}</p>
 
-					<a href="#booking"
-						class="inline-flex items-center gap-2 text-sm font-semibold text-teal-600 hover:text-teal-700 transition-colors group/link">
-						Book Now
-						<svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-					</a>
+						<a href="#booking"
+							class="inline-flex items-center gap-2 text-sm font-semibold text-teal-600 hover:text-teal-700 transition-colors group/link">
+							Book Now
+							<svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+						</a>
+					</div>
 				</div>
 			))}
 		</div>
 
 		<!-- Pricing note -->
-		<div class="mt-12 text-center">
-			<div class="inline-flex items-center gap-3 bg-white border border-gray-100 rounded-full px-6 py-3 text-sm text-gray-500">
-				<span class="text-gold-500">💰</span>
+		<div class="reveal reveal-up mt-12 text-center">
+			<div class="inline-flex items-center gap-3 bg-white/80 backdrop-blur-sm border border-gray-100 rounded-full px-6 py-3 text-sm text-gray-500 shadow-sm">
+				<span>💰</span>
 				Pricing varies by service and location. Contact for a personalized quote.
 			</div>
 		</div>
