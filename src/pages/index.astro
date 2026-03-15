@@ -1,0 +1,48 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Services from '../components/Services.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Booking from '../components/Booking.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="PhysioFirst | Muskan - Physiotherapist in Lucknow">
+	<Nav />
+	<Hero />
+	<About />
+	<Services />
+	<Testimonials />
+	<Booking />
+	<Contact />
+	<Footer />
+</Layout>
+
+<style is:global>
+	/* Scroll reveal animations */
+	.reveal {
+		opacity: 0;
+		transform: translateY(20px);
+		transition: opacity 0.6s ease, transform 0.6s ease;
+	}
+	.reveal.visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+</style>
+
+<script>
+	// Scroll reveal
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				entry.target.classList.add('visible');
+			}
+		});
+	}, { threshold: 0.1 });
+
+	document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>

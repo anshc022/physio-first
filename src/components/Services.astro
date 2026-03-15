@@ -1,0 +1,87 @@
+---
+const services = [
+	{
+		icon: '🏠',
+		title: 'Home Visit Physiotherapy',
+		desc: 'Professional physiotherapy treatment delivered at your doorstep. Comfortable, convenient, and personalized.',
+		highlight: true,
+	},
+	{
+		icon: '🩹',
+		title: 'Post-Surgery Rehabilitation',
+		desc: 'Structured recovery programs after joint replacement, ACL repair, spinal surgery, and more.',
+	},
+	{
+		icon: '🔙',
+		title: 'Back & Neck Pain Management',
+		desc: 'Manual therapy, posture correction, and strengthening exercises for chronic and acute pain.',
+	},
+	{
+		icon: '⚽',
+		title: 'Sports Injury Recovery',
+		desc: 'Return-to-sport programs with progressive strengthening, flexibility, and functional training.',
+	},
+	{
+		icon: '👴',
+		title: 'Geriatric Mobility Care',
+		desc: 'Fall prevention, balance training, and gentle exercise programs for elderly patients.',
+	},
+	{
+		icon: '🧠',
+		title: 'Neurological Rehabilitation',
+		desc: 'Stroke recovery, nerve palsy treatment, and neurological movement re-education.',
+	},
+];
+---
+
+<section id="services" class="py-24 bg-stone-50">
+	<div class="max-w-7xl mx-auto px-6">
+		<div class="text-center mb-16">
+			<p class="text-sm uppercase tracking-widest text-teal-600 font-semibold mb-3">What I Offer</p>
+			<h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Services</h2>
+			<p class="text-gray-500 max-w-2xl mx-auto">
+				Comprehensive physiotherapy services tailored to your needs. Available for both clinic
+				and home visits across Lucknow.
+			</p>
+		</div>
+
+		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+			{services.map(service => (
+				<div class={`group relative bg-white rounded-2xl p-8 border transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
+					service.highlight
+						? 'border-teal-200 shadow-lg shadow-teal-50 ring-1 ring-teal-100'
+						: 'border-gray-100 hover:border-teal-100'
+				}`}>
+					{service.highlight && (
+						<div class="absolute -top-3 left-6">
+							<span class="bg-teal-600 text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full">
+								Most Popular
+							</span>
+						</div>
+					)}
+
+					<div class="w-14 h-14 bg-teal-50 group-hover:bg-teal-100 rounded-2xl flex items-center justify-center mb-6 transition-colors">
+						<span class="text-2xl">{service.icon}</span>
+					</div>
+
+					<h3 class="font-heading font-bold text-gray-900 text-lg mb-3">{service.title}</h3>
+					<p class="text-gray-400 text-sm leading-relaxed mb-6">{service.desc}</p>
+
+					<a href="#booking"
+						class="inline-flex items-center gap-2 text-sm font-semibold text-teal-600 hover:text-teal-700 transition-colors group/link">
+						Book Now
+						<svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+					</a>
+				</div>
+			))}
+		</div>
+
+		<!-- Pricing note -->
+		<div class="mt-12 text-center">
+			<div class="inline-flex items-center gap-3 bg-white border border-gray-100 rounded-full px-6 py-3 text-sm text-gray-500">
+				<span class="text-gold-500">💰</span>
+				Pricing varies by service and location. Contact for a personalized quote.
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,92 @@
+---
+---
+
+<section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+	<!-- Background pattern -->
+	<div class="absolute inset-0 opacity-[0.03]"
+		style="background-image: radial-gradient(circle at 1px 1px, #0d9488 1px, transparent 0); background-size: 32px 32px;">
+	</div>
+
+	<!-- Floating shapes -->
+	<div class="absolute top-32 right-10 w-72 h-72 bg-teal-200/20 rounded-full blur-3xl"></div>
+	<div class="absolute bottom-20 left-10 w-60 h-60 bg-teal-100/20 rounded-full blur-3xl"></div>
+
+	<div class="max-w-7xl mx-auto px-6 py-16 grid lg:grid-cols-2 gap-12 items-center">
+		<!-- Left Content -->
+		<div class="z-10">
+			<div class="inline-flex items-center gap-2 bg-teal-50 text-teal-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+				<span class="w-2 h-2 bg-teal-500 rounded-full animate-pulse"></span>
+				Home Visit Physiotherapy Available
+			</div>
+
+			<h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-gray-900 mb-6">
+				Empowering Your
+				<span class="text-teal-600"> Recovery</span>,
+				<br/>One Step at a Time
+			</h1>
+
+			<p class="text-lg text-gray-500 leading-relaxed max-w-lg mb-8">
+				Expert physiotherapy care delivered to your doorstep. Personalized treatment plans
+				for orthopedic, neurological, and sports injuries.
+			</p>
+
+			<div class="flex flex-col sm:flex-row gap-4 mb-12">
+				<a href="#booking"
+					class="inline-flex items-center justify-center gap-2 bg-teal-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-teal-700 hover:shadow-xl hover:shadow-teal-200 transition-all duration-300 text-base">
+					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+					Book Appointment
+				</a>
+				<a href="#services"
+					class="inline-flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-full font-semibold hover:border-teal-300 hover:text-teal-700 transition-all duration-300 text-base">
+					View Services
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+				</a>
+			</div>
+
+			<!-- Trust badges -->
+			<div class="flex flex-wrap gap-6">
+				{[
+					{ icon: '🎓', label: 'BPT Certified' },
+					{ icon: '🏥', label: '6-Month Clinical Training' },
+					{ icon: '🏠', label: 'Home Visits' },
+				].map(badge => (
+					<div class="flex items-center gap-2 text-sm text-gray-500">
+						<span class="text-lg">{badge.icon}</span>
+						<span>{badge.label}</span>
+					</div>
+				))}
+			</div>
+		</div>
+
+		<!-- Right Image -->
+		<div class="relative z-10">
+			<div class="relative">
+				<div class="aspect-[4/5] rounded-3xl overflow-hidden bg-gradient-to-br from-teal-50 to-teal-100 border border-teal-100 shadow-2xl shadow-teal-100/50">
+					<div class="absolute inset-0 flex items-center justify-center">
+						<div class="text-center">
+							<span class="text-6xl mb-4 block">👩‍⚕️</span>
+							<span class="text-teal-400 text-sm uppercase tracking-widest">Professional Photo</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Floating card -->
+				<div class="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl p-4 flex items-center gap-3 border border-gray-100">
+					<div class="w-12 h-12 bg-gold-400/20 rounded-xl flex items-center justify-center">
+						<span class="text-2xl">⭐</span>
+					</div>
+					<div>
+						<p class="font-heading font-bold text-gray-900">4.9 Rating</p>
+						<p class="text-xs text-gray-400">Patient satisfaction</p>
+					</div>
+				</div>
+
+				<!-- Experience badge -->
+				<div class="absolute -top-3 -right-3 bg-teal-600 text-white rounded-2xl shadow-xl px-5 py-3 text-center">
+					<p class="font-heading font-bold text-xl">BPT</p>
+					<p class="text-[10px] uppercase tracking-wider text-teal-100">Certified</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
