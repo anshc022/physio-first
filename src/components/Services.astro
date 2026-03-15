@@ -3,66 +3,98 @@ const services = [
 	{
 		title: 'Home Visit Physiotherapy',
 		desc: 'Professional treatment at your doorstep — equipment, expertise, and personalized care delivered to your home.',
+		img: '/images/sports-rehab.jpg',
 		tag: 'Most Requested',
 	},
 	{
 		title: 'Post-Surgery Rehabilitation',
 		desc: 'Structured recovery after joint replacement, ACL repair, spinal surgery, and fracture fixation.',
+		img: '/images/back-therapy.jpg',
 	},
 	{
 		title: 'Back & Neck Pain',
 		desc: 'Manual therapy, mobilization, and corrective exercises for chronic and acute musculoskeletal pain.',
+		img: '/images/neck-therapy.jpg',
 	},
 	{
 		title: 'Sports Injury Recovery',
 		desc: 'Return-to-play rehabilitation with progressive strengthening and sport-specific reconditioning.',
+		img: '/images/exercise.jpg',
 	},
 	{
 		title: 'Geriatric Mobility',
 		desc: 'Fall prevention, balance training, and functional exercises to maintain senior independence.',
+		img: null,
 	},
 	{
 		title: 'Neurological Rehab',
 		desc: 'Stroke recovery, nerve palsy management, and motor re-education for neurological conditions.',
+		img: null,
 	},
 ];
 ---
 
-<section id="services" class="py-28 bg-white">
+<section id="services" class="py-24 lg:py-32 bg-white">
 	<div class="max-w-5xl mx-auto px-6">
-		<div class="grid md:grid-cols-12 gap-12 md:gap-16 mb-16">
-			<div class="md:col-span-3" data-animate>
-				<p class="text-[11px] tracking-[0.25em] uppercase text-olive-500 font-medium sticky top-24">Services</p>
-			</div>
-			<div class="md:col-span-9" data-animate data-delay="100">
-				<h2 class="font-display text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight leading-tight">
-					What I treat.
-				</h2>
-			</div>
+		<div class="text-center mb-16" data-animate>
+			<p class="text-[11px] tracking-[0.25em] uppercase text-olive-500 font-medium mb-4">Services</p>
+			<h2 class="font-display text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight">
+				What I treat.
+			</h2>
+			<p class="text-neutral-400 mt-4 max-w-md mx-auto text-[15px] leading-relaxed">
+				Available for clinic and home visits across Lucknow. Each plan is personalized.
+			</p>
 		</div>
 
-		<div class="max-w-5xl mx-auto">
-			{services.map((s, i) => (
-				<a href="#booking"
-					class="group grid md:grid-cols-12 gap-4 md:gap-8 py-7 border-b border-neutral-100 items-baseline hover:border-neutral-300 transition-colors cursor-pointer"
-					data-animate data-delay={String(i * 60)}>
-					<div class="md:col-span-1 text-[11px] text-neutral-300 font-mono">
-						{String(i + 1).padStart(2, '0')}
-					</div>
-					<div class="md:col-span-4">
-						<h3 class="text-lg font-display font-semibold text-neutral-900 group-hover:text-olive-600 transition-colors">
-							{s.title}
-						</h3>
+		<!-- Top row: 2 large cards with images -->
+		<div class="grid md:grid-cols-2 gap-5 mb-5">
+			{services.slice(0, 2).map((s, i) => (
+				<a href="#booking" class="group block rounded-2xl overflow-hidden bg-neutral-900 relative aspect-[4/3] cursor-pointer" data-animate data-delay={String(i * 80)}>
+					{s.img && (
+						<img src={s.img} alt={s.title} class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700" loading="lazy" />
+					)}
+					<div class="absolute inset-0 bg-gradient-to-t from-neutral-900/90 via-transparent to-transparent"></div>
+					<div class="relative z-10 h-full flex flex-col justify-end p-7">
 						{s.tag && (
-							<span class="inline-block mt-1.5 text-[10px] tracking-wider uppercase text-olive-600 bg-olive-50 px-2 py-0.5 rounded">{s.tag}</span>
+							<span class="inline-block self-start text-[10px] tracking-wider uppercase text-olive-300 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded mb-3">{s.tag}</span>
+						)}
+						<h3 class="font-display text-xl font-bold text-white mb-2">{s.title}</h3>
+						<p class="text-neutral-300 text-sm leading-relaxed max-w-sm">{s.desc}</p>
+					</div>
+				</a>
+			))}
+		</div>
+
+		<!-- Middle row: 2 medium cards with images -->
+		<div class="grid md:grid-cols-2 gap-5 mb-5">
+			{services.slice(2, 4).map((s, i) => (
+				<a href="#booking" class="group block rounded-2xl overflow-hidden border border-neutral-100 bg-white hover:shadow-lg transition-all duration-500 cursor-pointer" data-animate data-delay={String((i + 2) * 80)}>
+					{s.img && (
+						<div class="aspect-[16/9] overflow-hidden">
+							<img src={s.img} alt={s.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+						</div>
+					)}
+					<div class="p-6">
+						<h3 class="font-display text-lg font-semibold text-neutral-900 group-hover:text-olive-600 transition-colors mb-2">{s.title}</h3>
+						<p class="text-neutral-400 text-sm leading-relaxed">{s.desc}</p>
+					</div>
+				</a>
+			))}
+		</div>
+
+		<!-- Bottom row: 2 text-only cards -->
+		<div class="grid md:grid-cols-2 gap-5">
+			{services.slice(4).map((s, i) => (
+				<a href="#booking" class="group block rounded-2xl border border-neutral-100 bg-stone-50 p-7 hover:bg-white hover:shadow-md transition-all duration-500 cursor-pointer" data-animate data-delay={String((i + 4) * 80)}>
+					<div class="w-10 h-10 bg-olive-100 rounded-lg flex items-center justify-center mb-4">
+						{i === 0 ? (
+							<svg class="w-5 h-5 text-olive-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+						) : (
+							<svg class="w-5 h-5 text-olive-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
 						)}
 					</div>
-					<div class="md:col-span-6">
-						<p class="text-sm text-neutral-400 leading-relaxed">{s.desc}</p>
-					</div>
-					<div class="md:col-span-1 hidden md:flex justify-end">
-						<svg class="w-4 h-4 text-neutral-200 group-hover:text-olive-500 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-					</div>
+					<h3 class="font-display text-lg font-semibold text-neutral-900 group-hover:text-olive-600 transition-colors mb-2">{s.title}</h3>
+					<p class="text-neutral-400 text-sm leading-relaxed">{s.desc}</p>
 				</a>
 			))}
 		</div>

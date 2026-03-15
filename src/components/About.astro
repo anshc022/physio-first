@@ -1,48 +1,54 @@
 ---
 ---
 
-<section id="about" class="py-28">
+<section id="about" class="py-24 lg:py-32">
 	<div class="max-w-5xl mx-auto px-6">
-		<div class="grid md:grid-cols-12 gap-12 md:gap-16">
-			<!-- Label -->
-			<div class="md:col-span-3" data-animate>
-				<p class="text-[11px] tracking-[0.25em] uppercase text-olive-500 font-medium sticky top-24">About</p>
+		<div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+			<!-- Photo -->
+			<div data-animate>
+				<div class="relative">
+					<img src="/muskan-doctor.jpg" alt="Dr. Muskan Kumari — Physiotherapist"
+						class="w-full rounded-2xl object-cover aspect-[3/4]" loading="lazy" />
+					<!-- Small floating credential card -->
+					<div class="absolute -bottom-4 -right-4 bg-white rounded-xl shadow-lg px-5 py-4 border border-neutral-100">
+						<p class="text-xs text-neutral-400 tracking-wider uppercase">Qualification</p>
+						<p class="font-display font-bold text-neutral-900 mt-0.5">BPT — Integral University</p>
+					</div>
+				</div>
 			</div>
 
 			<!-- Content -->
-			<div class="md:col-span-9" data-animate data-delay="100">
-				<h2 class="font-display text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight leading-tight mb-8">
-					I believe recovery should happen where you feel safest — your home.
+			<div data-animate data-delay="150">
+				<p class="text-[11px] tracking-[0.25em] uppercase text-olive-500 font-medium mb-5">About Me</p>
+
+				<h2 class="font-display text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight leading-tight mb-6">
+					I believe recovery should happen where you feel safest.
 				</h2>
 
-				<div class="space-y-5 text-neutral-500 leading-[1.75] mb-12 max-w-xl">
+				<div class="space-y-4 text-neutral-500 leading-[1.8] text-[15px] mb-10">
 					<p>
-						With a Bachelor of Physiotherapy from Integral University and six months
-						of clinical training across orthopedics, neurology, cardiopulmonary, and
-						geriatric care, I bring hospital-grade expertise to your doorstep.
+						I'm Muskan Kumari, a physiotherapist based in Lucknow with a Bachelor of Physiotherapy from Integral University. My six months of clinical training spanned orthopedics, neurology, cardiopulmonary, and geriatric care.
 					</p>
 					<p>
-						Every treatment plan starts with listening. Your condition, your goals,
-						your pace. No cookie-cutter exercises, no rushed sessions — just focused,
-						one-on-one care tailored to you.
+						Every treatment plan starts with listening. Your condition, your goals, your pace. No cookie-cutter exercises — just focused, one-on-one care tailored to get you moving again.
 					</p>
 				</div>
 
-				<!-- Skills as a quiet horizontal list -->
-				<div class="border-t border-neutral-200 pt-8">
-					<p class="text-[11px] tracking-[0.2em] uppercase text-neutral-300 font-medium mb-5">Clinical Training</p>
-					<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-						{[
-							'Patient Assessment & Diagnosis',
-							'Manual Therapy',
-							'Electrotherapy (TENS, IFT, US)',
-							'Therapeutic Exercise',
-							'Gait & Posture Analysis',
-							'Rehab Program Design',
-						].map(s => (
-							<span class="text-[13px] text-neutral-600">{s}</span>
-						))}
-					</div>
+				<!-- Skills grid -->
+				<div class="grid grid-cols-2 gap-3">
+					{[
+						'Manual Therapy',
+						'Electrotherapy',
+						'Therapeutic Exercise',
+						'Posture Correction',
+						'Gait Training',
+						'Rehab Planning',
+					].map(s => (
+						<div class="flex items-center gap-2.5 text-sm text-neutral-600">
+							<div class="w-1.5 h-1.5 bg-olive-400 rounded-full flex-shrink-0"></div>
+							{s}
+						</div>
+					))}
 				</div>
 			</div>
 		</div>
