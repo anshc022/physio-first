@@ -1,63 +1,52 @@
 ---
 const testimonials = [
 	{
-		name: 'Rajesh K.',
-		condition: 'Post knee replacement',
 		text: 'The home visit service was a blessing. Professional, punctual, and my recovery has been much faster than expected.',
-		rating: 5,
+		name: 'Rajesh K.',
+		label: 'Post knee replacement',
 	},
 	{
-		name: 'Sunita M.',
-		condition: 'Chronic back pain',
 		text: 'After months of pain, I finally found relief. The treatment plan was thorough and the exercises really helped.',
-		rating: 5,
+		name: 'Sunita M.',
+		label: 'Chronic back pain',
 	},
 	{
+		text: 'Got back on the field in 6 weeks. The rehab program was tough but effective.',
 		name: 'Amit S.',
-		condition: 'Sports injury - ankle',
-		text: 'Got back on the field in 6 weeks. The rehab program was tough but effective. Highly recommend for athletes.',
-		rating: 5,
+		label: 'Sports injury recovery',
 	},
 	{
-		name: 'Geeta D.',
-		condition: 'Geriatric care for father',
 		text: 'My father regained his confidence in walking again. The patience and care shown during every session was remarkable.',
-		rating: 5,
+		name: 'Geeta D.',
+		label: 'Geriatric care',
 	},
 ];
 ---
 
-<section id="testimonials" class="py-24 bg-white">
-	<div class="max-w-7xl mx-auto px-6">
-		<div class="text-center mb-16">
-			<p class="text-sm uppercase tracking-widest text-teal-600 font-semibold mb-3">Patient Stories</p>
-			<h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Testimonials</h2>
-			<p class="text-gray-500 max-w-2xl mx-auto">
-				Real experiences from patients who trusted me with their recovery.
-			</p>
+<section id="testimonials" class="py-28 bg-stone-50">
+	<div class="max-w-6xl mx-auto px-6">
+		<div class="mb-16" data-animate="fade-up">
+			<p class="text-sm tracking-[0.2em] uppercase text-teal-600 font-medium mb-4">Testimonials</p>
+			<h2 class="text-4xl md:text-5xl font-medium text-gray-900 tracking-tight">
+				Patient stories.
+			</h2>
 		</div>
 
 		<div class="grid md:grid-cols-2 gap-6">
-			{testimonials.map(t => (
-				<div class="bg-stone-50 rounded-2xl p-8 border border-gray-100 hover:border-teal-100 hover:shadow-lg transition-all duration-300">
-					<!-- Stars -->
-					<div class="flex gap-1 mb-4">
-						{Array.from({ length: t.rating }).map(() => (
-							<svg class="w-5 h-5 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
-								<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-							</svg>
-						))}
-					</div>
-
-					<p class="text-gray-600 leading-relaxed mb-6 text-[15px]">"{t.text}"</p>
-
+			{testimonials.map((t, i) => (
+				<div class="bg-white rounded-2xl p-8 md:p-10 border border-gray-100 hover:shadow-md transition-all duration-500"
+					data-animate="fade-up" data-delay={String(i * 100)}>
+					<svg class="w-8 h-8 text-gray-200 mb-6" fill="currentColor" viewBox="0 0 24 24">
+						<path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/>
+					</svg>
+					<p class="text-gray-600 leading-relaxed mb-8">{t.text}</p>
 					<div class="flex items-center gap-3">
-						<div class="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center">
-							<span class="font-heading font-bold text-teal-600 text-sm">{t.name[0]}</span>
+						<div class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center">
+							<span class="text-sm font-medium text-gray-500">{t.name[0]}</span>
 						</div>
 						<div>
-							<p class="font-heading font-bold text-sm text-gray-900">{t.name}</p>
-							<p class="text-xs text-gray-400">{t.condition}</p>
+							<p class="text-sm font-medium text-gray-900">{t.name}</p>
+							<p class="text-xs text-gray-400">{t.label}</p>
 						</div>
 					</div>
 				</div>

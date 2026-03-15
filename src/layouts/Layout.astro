@@ -1,146 +1,89 @@
 ---
 interface Props {
-	title: string;
-	description?: string;
+	title?: string;
 }
 
-const { title, description = 'Professional physiotherapy services in Lucknow. Home visits, post-surgery rehab, sports injury recovery. Book your appointment today.' } = Astro.props;
+const { title = 'PhysioFirst | Physiotherapist in Lucknow' } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en" class="scroll-smooth">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="description" content={description} />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-	</head>
-	<body class="bg-stone-50 text-gray-800 font-sans antialiased overflow-x-hidden">
-		<slot />
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="Professional physiotherapy care delivered to your doorstep in Lucknow. Home visits, post-surgery rehab, sports injury recovery by Dr. Muskan, BPT." />
+	<meta name="keywords" content="physiotherapist lucknow, home physiotherapy, BPT, sports injury, orthopedic rehab, neurological rehab" />
 
-		<!-- Parallax + Reveal Animations -->
-		<script>
-			// Reveal on scroll
-			const revealObserver = new IntersectionObserver((entries) => {
-				entries.forEach(entry => {
-					if (entry.isIntersecting) {
-						entry.target.classList.add('revealed');
-						revealObserver.unobserve(entry.target);
-					}
-				});
-			}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-			document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+	<title>{title}</title>
+</head>
+<body class="bg-white text-gray-900 font-sans antialiased overflow-x-hidden">
+	<slot />
 
-			// Parallax on scroll
-			let ticking = false;
-			window.addEventListener('scroll', () => {
-				if (!ticking) {
-					requestAnimationFrame(() => {
-						const scrollY = window.scrollY;
-						document.querySelectorAll('.parallax-element').forEach(el => {
-							const speed = parseFloat(el.dataset.speed || '0.3');
-							el.style.transform = `translateY(${scrollY * speed}px)`;
-						});
-						document.querySelectorAll('.parallax-bg').forEach(el => {
-							const speed = parseFloat(el.dataset.speed || '0.2');
-							el.style.transform = `translateY(${scrollY * speed}px)`;
-						});
-						ticking = false;
-					});
-					ticking = true;
+	<style is:global>
+		body {
+			font-family: 'Inter', system-ui, -apple-system, sans-serif;
+		}
+
+		/* Scroll animations */
+		[data-animate] {
+			opacity: 0;
+			transform: translateY(24px);
+			transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+						transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+		[data-animate].visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		/* Smooth scroll behavior */
+		html {
+			scroll-behavior: smooth;
+		}
+
+		/* Selection color */
+		::selection {
+			background: rgba(13, 148, 136, 0.15);
+		}
+
+		/* Custom scrollbar */
+		::-webkit-scrollbar {
+			width: 6px;
+		}
+		::-webkit-scrollbar-track {
+			background: transparent;
+		}
+		::-webkit-scrollbar-thumb {
+			background: rgba(0,0,0,0.15);
+			border-radius: 3px;
+		}
+		::-webkit-scrollbar-thumb:hover {
+			background: rgba(0,0,0,0.3);
+		}
+	</style>
+
+	<script>
+		// Intersection Observer for scroll animations
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					const el = entry.target as HTMLElement;
+					const delay = parseInt(el.dataset.delay || '0');
+					setTimeout(() => el.classList.add('visible'), delay);
+					observer.unobserve(el);
 				}
 			});
+		}, {
+			threshold: 0.1,
+			rootMargin: '0px 0px -50px 0px'
+		});
 
-			// Stacked cards scroll effect
-			const stackedObserver = new IntersectionObserver((entries) => {
-				entries.forEach(entry => {
-					if (entry.isIntersecting) {
-						const cards = entry.target.querySelectorAll('.service-card');
-						cards.forEach((card, i) => {
-							setTimeout(() => {
-								card.classList.add('revealed');
-							}, i * 100);
-						});
-					}
-				});
-			}, { threshold: 0.1 });
-
-			document.querySelectorAll('.stacked-cards').forEach(el => stackedObserver.observe(el));
-		</script>
-	</body>
+		document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+	</script>
+</body>
 </html>
-
-<style is:global>
-	h1, h2, h3, h4 {
-		font-family: 'Plus Jakarta Sans', sans-serif;
-	}
-
-	::selection {
-		background-color: #0d948833;
-	}
-
-	/* Reveal Animations */
-	.reveal {
-		opacity: 0;
-		transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-	}
-
-	.reveal.reveal-left {
-		transform: translateX(-40px);
-	}
-
-	.reveal.reveal-right {
-		transform: translateX(40px);
-	}
-
-	.reveal.reveal-up {
-		transform: translateY(40px);
-	}
-
-	.reveal.revealed {
-		opacity: 1;
-		transform: translateX(0) translateY(0);
-	}
-
-	/* Service card stacked entrance */
-	.service-card {
-		opacity: 0;
-		transform: translateY(30px) scale(0.95);
-		transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-	}
-
-	.service-card.revealed {
-		opacity: 1;
-		transform: translateY(0) scale(1);
-	}
-
-	/* Spec card stagger */
-	.spec-card {
-		transition: all 0.3s ease;
-	}
-
-	/* Smooth scroll behavior for anchor links */
-	html {
-		scroll-behavior: smooth;
-	}
-
-	/* Reduced motion */
-	@media (prefers-reduced-motion: reduce) {
-		.reveal,
-		.service-card,
-		.parallax-element,
-		.parallax-bg,
-		.particle {
-			animation: none !important;
-			transition: none !important;
-			transform: none !important;
-			opacity: 1 !important;
-		}
-	}
-</style>

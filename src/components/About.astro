@@ -1,84 +1,86 @@
 ---
-const specializations = [
-	{ icon: '🦴', title: 'Orthopedic Rehab', desc: 'Recovery from fractures, joint replacements, and musculoskeletal conditions.', image: '/images/physio_ortho.png' },
-	{ icon: '🧠', title: 'Neurological Rehab', desc: 'Stroke recovery, nerve injuries, and neurological movement disorders.', image: '/images/physio_neuro.png' },
-	{ icon: '❤️', title: 'Cardiopulmonary Rehab', desc: 'Breathing exercises, cardiac recovery, and endurance training.', image: '/images/physio_cardio.png' },
-	{ icon: '👴', title: 'Geriatric Care', desc: 'Mobility improvement, balance training, and fall prevention for seniors.', image: '/images/physio_geriatric.png' },
-	{ icon: '⚽', title: 'Sports Injury', desc: 'ACL recovery, muscle tears, and return-to-sport rehabilitation.', image: '/images/physio_ortho.png' },
-];
 ---
 
-<section id="about" class="py-24 bg-white relative overflow-hidden">
-	<!-- Subtle background -->
-	<div class="absolute top-0 right-0 w-96 h-96 bg-teal-50/40 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+<section id="about" class="py-28 bg-white">
+	<div class="max-w-6xl mx-auto px-6">
+		<div class="grid lg:grid-cols-2 gap-20 items-start">
+			<!-- Left: Text-only (no duplicate photo) -->
+			<div data-animate="fade-up">
+				<p class="text-sm tracking-[0.2em] uppercase text-teal-600 font-medium mb-6">About</p>
+				<h2 class="text-4xl md:text-5xl font-medium text-gray-900 tracking-tight mb-8">
+					Dedicated to<br/>your recovery.
+				</h2>
 
-	<div class="max-w-7xl mx-auto px-6 relative z-10">
-		<div class="grid lg:grid-cols-2 gap-16 items-start">
-			<!-- Left: Real Photo + Info -->
-			<div class="reveal reveal-left">
-				<div class="aspect-[3/4] rounded-3xl overflow-hidden mb-8 relative shadow-2xl shadow-teal-100/30">
-					<img src="/muskan-doctor.jpg" alt="Dr. Muskan Kumari" class="w-full h-full object-cover object-top" />
-					<div class="absolute inset-0 bg-gradient-to-t from-teal-900/20 to-transparent"></div>
+				<div class="space-y-4 text-gray-400 leading-relaxed mb-12">
+					<p>
+						I'm a physiotherapist based in Lucknow with a Bachelor of Physiotherapy from
+						Integral University. My 6-month clinical rotatory internship gave me hands-on
+						experience across orthopedic, neurological, cardiopulmonary, and geriatric care.
+					</p>
+					<p>
+						I bring therapy to your home because recovery shouldn't wait. Every treatment plan
+						is built around your unique needs, your pace, your goals.
+					</p>
 				</div>
 
-				<!-- Education card with glassmorphism -->
-				<div class="reveal reveal-up bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 shadow-lg" style="animation-delay:0.2s">
-					<h4 class="font-heading font-bold text-gray-900 mb-3">Education</h4>
-					<div class="space-y-3">
-						<div class="flex gap-3 p-2 rounded-lg hover:bg-teal-50/50 transition-colors duration-200">
-							<div class="w-10 h-10 bg-teal-50 rounded-lg flex items-center justify-center flex-shrink-0">
-								<span>🎓</span>
+				<!-- Specializations -->
+				<div class="space-y-4">
+					<p class="text-xs tracking-[0.15em] uppercase text-gray-300 font-medium">Specializations</p>
+					<div class="grid grid-cols-2 gap-3">
+						{[
+							'Orthopedic Rehab',
+							'Neurological Rehab',
+							'Cardiopulmonary',
+							'Geriatric Care',
+							'Sports Injury',
+							'Home Physiotherapy',
+						].map(spec => (
+							<div class="flex items-center gap-2 text-sm text-gray-600">
+								<span class="w-1 h-1 bg-teal-500 rounded-full"></span>
+								{spec}
 							</div>
-							<div>
-								<p class="font-medium text-sm text-gray-900">Bachelor of Physiotherapy (BPT)</p>
-								<p class="text-xs text-gray-400">Integral University, Lucknow | 2026</p>
-							</div>
-						</div>
-						<div class="flex gap-3 p-2 rounded-lg hover:bg-teal-50/50 transition-colors duration-200">
-							<div class="w-10 h-10 bg-teal-50 rounded-lg flex items-center justify-center flex-shrink-0">
-								<span>🏥</span>
-							</div>
-							<div>
-								<p class="font-medium text-sm text-gray-900">6-Month Rotatory Internship</p>
-								<p class="text-xs text-gray-400">Ortho, Neuro, Cardiopulmonary, Geriatrics</p>
-							</div>
-						</div>
+						))}
 					</div>
 				</div>
 			</div>
 
-			<!-- Right: Bio + Specializations with stagger -->
-			<div>
-				<p class="reveal reveal-right text-sm uppercase tracking-widest text-teal-600 font-semibold mb-3">About Me</p>
-				<h2 class="reveal reveal-right text-4xl md:text-5xl font-extrabold text-gray-900 mb-6" style="animation-delay:0.1s">
-					Dr. Muskan
-				</h2>
-				<p class="reveal reveal-right text-lg text-gray-500 leading-relaxed mb-4" style="animation-delay:0.2s">
-					A dedicated physiotherapist committed to helping patients regain their mobility,
-					strength, and independence. With hands-on clinical experience across multiple specialties,
-					I deliver personalized, evidence-based treatment plans.
-				</p>
-				<p class="reveal reveal-right text-lg text-gray-500 leading-relaxed mb-10" style="animation-delay:0.3s">
-					I believe in bringing care to where patients are most comfortable — their homes.
-					Whether you're recovering from surgery, managing chronic pain, or rehabilitating
-					from a sports injury, I'm here to guide your recovery journey.
-				</p>
+			<!-- Right: Education + Stats (no photo) -->
+			<div data-animate="fade-up" data-delay="150">
+				<!-- Big number stats -->
+				<div class="grid grid-cols-2 gap-6 mb-12">
+					<div class="bg-stone-50 rounded-2xl p-8">
+						<p class="text-4xl font-light text-gray-900 mb-2">6</p>
+						<p class="text-xs text-gray-400 uppercase tracking-wider">Months Clinical Training</p>
+					</div>
+					<div class="bg-stone-50 rounded-2xl p-8">
+						<p class="text-4xl font-light text-teal-600 mb-2">BPT</p>
+						<p class="text-xs text-gray-400 uppercase tracking-wider">Certified Graduate</p>
+					</div>
+					<div class="bg-stone-50 rounded-2xl p-8">
+						<p class="text-4xl font-light text-gray-900 mb-2">4</p>
+						<p class="text-xs text-gray-400 uppercase tracking-wider">Specializations</p>
+					</div>
+					<div class="bg-stone-50 rounded-2xl p-8">
+						<p class="text-4xl font-light text-teal-600 mb-2">24h</p>
+						<p class="text-xs text-gray-400 uppercase tracking-wider">Response Time</p>
+					</div>
+				</div>
 
-				<!-- Specializations with stacked card effect -->
-				<h3 class="reveal reveal-up font-heading font-bold text-gray-900 text-xl mb-6">Specializations</h3>
-				<div class="grid gap-4">
-					{specializations.map((spec, i) => (
-						<div class={`reveal reveal-up spec-card flex gap-4 items-start p-4 rounded-xl bg-white hover:bg-teal-50 border border-gray-100 hover:border-teal-200 transition-all duration-300 group cursor-default shadow-sm hover:shadow-md hover:-translate-y-0.5`}
-							style={`animation-delay:${0.1 * (i + 1)}s`}>
-							<div class="w-14 h-14 bg-teal-50 group-hover:bg-teal-100 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors overflow-hidden">
-								<img src={spec.image} alt={spec.title} class="w-full h-full object-cover rounded-xl" />
-							</div>
-							<div>
-								<p class="font-heading font-bold text-gray-900 text-sm">{spec.title}</p>
-								<p class="text-sm text-gray-400 mt-0.5">{spec.desc}</p>
-							</div>
+				<!-- Education timeline -->
+				<div class="space-y-6">
+					<p class="text-xs tracking-[0.15em] uppercase text-gray-300 font-medium">Education</p>
+					<div class="border-l-2 border-gray-100 pl-6 space-y-8">
+						<div class="relative">
+							<div class="absolute -left-[31px] top-1 w-3 h-3 bg-teal-500 rounded-full"></div>
+							<p class="text-sm font-medium text-gray-900">Bachelor of Physiotherapy (BPT)</p>
+							<p class="text-xs text-gray-400 mt-1">Integral University, Lucknow  ·  2026</p>
 						</div>
-					))}
+						<div class="relative">
+							<div class="absolute -left-[31px] top-1 w-3 h-3 bg-gray-200 rounded-full"></div>
+							<p class="text-sm font-medium text-gray-900">Clinical Rotatory Internship</p>
+							<p class="text-xs text-gray-400 mt-1">6 months  ·  Ortho, Neuro, Cardio, Geriatrics</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
