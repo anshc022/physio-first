@@ -185,16 +185,28 @@ const { title } = Astro.props;
 
 	document.querySelectorAll('[data-animate],[data-animate-left],[data-animate-right],[data-animate-scale],[data-clip-reveal]').forEach(el => io.observe(el));
 
-	/* ---- Text split reveal ---- */
+	/* ---- Text split reveal (word-based) ---- */
 	document.querySelectorAll('[data-split]').forEach(el => {
 		const text = el.textContent || '';
 		el.innerHTML = '';
-		text.split('').forEach((char, i) => {
+		text.split(' ').forEach((word, i) => {
+			const wrapper = document.createElement('span');
+			wrapper.style.display = 'inline-block';
+			wrapper.style.overflow = 'hidden';
+			wrapper.style.verticalAlign = 'top';
+
 			const span = document.createElement('span');
 			span.className = 'split-char';
-			span.textContent = char === ' ' ? '\u00A0' : char;
-			span.style.transitionDelay = `${i * 30}ms`;
-			el.appendChild(span);
+			span.textContent = word;
+			span.style.transitionDelay = `${i * 60}ms`;
+
+			wrapper.appendChild(span);
+			el.appendChild(wrapper);
+
+			// Add space after word (except last)
+			if (i < text.split(' ').length - 1) {
+				el.appendChild(document.createTextNode(' '));
+			}
 		});
 
 		const splitIO = new IntersectionObserver((entries) => {
