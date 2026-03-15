@@ -42,7 +42,7 @@ const cards = [
 			</h2>
 		</div>
 
-		<!-- Cards stack with simple scroll reveal -->
+		<!-- Cards with direction-aware scroll animation -->
 		<div class="process-stack relative max-w-2xl mx-auto">
 			{cards.map((c, i) => (
 				<div
@@ -50,8 +50,7 @@ const cards = [
 						'process-card rounded-2xl p-8 md:p-12 shadow-lg mb-6 last:mb-0',
 						c.color
 					]}
-					data-animate
-					data-delay={String(i * 100)}
+					data-process-card={String(i)}
 					style={`--card-index: ${i};`}
 				>
 					<div class="flex items-start justify-between mb-6">
@@ -73,25 +72,97 @@ const cards = [
 <style>
 	.process-card {
 		min-height: 200px;
-		transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+		opacity: 0;
+		transform: translateY(60px);
+		transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+					transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+					box-shadow 0.4s ease;
 	}
-	.process-card:hover {
+
+	/* Visible state — scrolling down, cards enter from below */
+	.process-card.card-in {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	/* Exit state — scrolling up, cards leave upward */
+	.process-card.card-out-up {
+		opacity: 0;
+		transform: translateY(-40px);
+	}
+
+	.process-card.card-in:hover {
 		transform: translateY(-4px);
 		box-shadow: 0 25px 60px rgba(0,0,0,0.1);
 	}
 
 	/* Desktop: sticky stacking effect */
 	@media (min-width: 768px) {
-		.process-card {
+		.process-card.card-in {
 			position: sticky;
 			top: calc(80px + var(--card-index) * 30px);
 			margin-bottom: 0;
 		}
-		.process-card + .process-card {
+		.process-card.card-in + .process-card.card-in {
 			margin-top: 30px;
 		}
 		.process-stack {
 			padding-bottom: 120px;
 		}
 	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.process-card {
+			opacity: 1;
+			transform: none;
+			transition: none;
+		}
+	}
 </style>
+
+<script>
+	let lastScrollY = window.scrollY;
+	let scrollDir: 'down' | 'up' = 'down';
+
+	window.addEventListener('scroll', () => {
+		scrollDir = window.scrollY > lastScrollY ? 'down' : 'up';
+		lastScrollY = window.scrollY;
+	}, { passive: true });
+
+	const processCards = document.querySelectorAll('[data-process-card]');
+	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	if (!reducedMotion && processCards.length > 0) {
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				const card = entry.target as HTMLElement;
+				const idx = parseInt(card.getAttribute('data-process-card') || '0');
+				const delay = idx * 120;
+
+				if (entry.isIntersecting) {
+					// Entering viewport — animate in
+					card.classList.remove('card-out-up');
+					setTimeout(() => {
+						card.classList.add('card-in');
+					}, delay);
+				} else {
+					// Leaving viewport
+					if (scrollDir === 'up') {
+						// Scrolling up — card exits upward
+						card.classList.remove('card-in');
+						card.classList.add('card-out-up');
+						// Reset to default (below) state after transition for re-entry
+						setTimeout(() => {
+							card.classList.remove('card-out-up');
+						}, 700);
+					} else {
+						// Scrolling down past — just keep visible or reset
+						// (this happens when card is above viewport)
+					}
+				}
+			});
+		}, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+
+		processCards.forEach(card => observer.observe(card));
+	}
+</script>
