@@ -55,4 +55,15 @@ const { title } = Astro.props;
 	}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
 	document.querySelectorAll('[data-animate]').forEach(el => io.observe(el));
+
+	/* Parallax hero image */
+	const parallaxImg = document.querySelector('.parallax-img') as HTMLElement;
+	if (parallaxImg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		window.addEventListener('scroll', () => {
+			const y = window.scrollY;
+			if (y < window.innerHeight * 1.2) {
+				parallaxImg.style.transform = `scale(1.1) translateY(${y * 0.3}px)`;
+			}
+		}, { passive: true });
+	}
 </script>

@@ -1,0 +1,66 @@
+---
+---
+
+<!-- Horizontal scrolling text marquee -->
+<div class="py-6 bg-neutral-900 overflow-hidden border-y border-neutral-800">
+	<div class="marquee-track flex whitespace-nowrap">
+		{[...Array(3)].map(() => (
+			<div class="flex items-center gap-8 mx-8 shrink-0 marquee-content">
+				<span class="text-sm font-display font-semibold text-white/80 uppercase tracking-widest">Home Visit Physiotherapy</span>
+				<span class="text-olive-400 text-lg">✦</span>
+				<span class="text-sm font-display font-semibold text-white/80 uppercase tracking-widest">Post-Surgery Rehab</span>
+				<span class="text-olive-400 text-lg">✦</span>
+				<span class="text-sm font-display font-semibold text-white/80 uppercase tracking-widest">Sports Injury Recovery</span>
+				<span class="text-olive-400 text-lg">✦</span>
+				<span class="text-sm font-display font-semibold text-white/80 uppercase tracking-widest">Back & Neck Pain</span>
+				<span class="text-olive-400 text-lg">✦</span>
+				<span class="text-sm font-display font-semibold text-white/80 uppercase tracking-widest">Neurological Rehab</span>
+				<span class="text-olive-400 text-lg">✦</span>
+				<span class="text-sm font-display font-semibold text-white/80 uppercase tracking-widest">Geriatric Care</span>
+				<span class="text-olive-400 text-lg">✦</span>
+			</div>
+		))}
+	</div>
+</div>
+
+<!-- Reverse direction marquee -->
+<div class="py-6 bg-neutral-900 overflow-hidden border-b border-neutral-800">
+	<div class="marquee-track-reverse flex whitespace-nowrap">
+		{[...Array(3)].map(() => (
+			<div class="flex items-center gap-8 mx-8 shrink-0 marquee-content">
+				<span class="text-sm font-display font-semibold text-white/30 uppercase tracking-widest">Evidence-Based Treatment</span>
+				<span class="text-neutral-600 text-lg">◆</span>
+				<span class="text-sm font-display font-semibold text-white/30 uppercase tracking-widest">Lucknow Coverage</span>
+				<span class="text-neutral-600 text-lg">◆</span>
+				<span class="text-sm font-display font-semibold text-white/30 uppercase tracking-widest">BPT Certified</span>
+				<span class="text-neutral-600 text-lg">◆</span>
+				<span class="text-sm font-display font-semibold text-white/30 uppercase tracking-widest">Personalized Plans</span>
+				<span class="text-neutral-600 text-lg">◆</span>
+				<span class="text-sm font-display font-semibold text-white/30 uppercase tracking-widest">One-on-One Sessions</span>
+				<span class="text-neutral-600 text-lg">◆</span>
+				<span class="text-sm font-display font-semibold text-white/30 uppercase tracking-widest">Hospital Trained</span>
+				<span class="text-neutral-600 text-lg">◆</span>
+			</div>
+		))}
+	</div>
+</div>
+
+<style>
+	@keyframes marquee-scroll {
+		0% { transform: translateX(0); }
+		100% { transform: translateX(-33.333%); }
+	}
+	@keyframes marquee-scroll-reverse {
+		0% { transform: translateX(-33.333%); }
+		100% { transform: translateX(0); }
+	}
+	.marquee-track {
+		animation: marquee-scroll 30s linear infinite;
+	}
+	.marquee-track-reverse {
+		animation: marquee-scroll-reverse 35s linear infinite;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.marquee-track, .marquee-track-reverse { animation: none; }
+	}
+</style>

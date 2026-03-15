@@ -3,19 +3,19 @@
 
 <nav class="fixed top-0 w-full z-50" id="nav">
 	<div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-		<a href="#" class="font-display text-[15px] font-semibold text-neutral-900">
-			MK<span class="text-olive-500">.</span>
+		<a href="#" class="font-display text-[15px] font-semibold text-white nav-logo transition-colors">
+			MK<span class="text-olive-300 nav-dot">.</span>
 		</a>
 
 		<div class="hidden md:flex items-center gap-7">
 			{['About','Services','Contact'].map(l => (
-				<a href={`#${l.toLowerCase()}`} class="text-[13px] text-neutral-400 hover:text-neutral-800 transition-colors">{l}</a>
+				<a href={`#${l.toLowerCase()}`} class="text-[13px] text-white/70 hover:text-white transition-colors nav-link">{l}</a>
 			))}
-			<a href="#booking" class="text-[13px] font-medium text-white bg-neutral-900 px-4 py-2 rounded-md hover:bg-neutral-800 transition-colors">Book</a>
+			<a href="#booking" class="text-[13px] font-medium text-neutral-900 bg-white px-4 py-2 rounded-md hover:bg-neutral-100 transition-colors nav-cta">Book</a>
 		</div>
 
 		<button id="mob-btn" class="md:hidden p-2" aria-label="Menu">
-			<svg class="w-5 h-5 text-neutral-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="1.5" d="M4 7h16M4 12h10M4 17h16"/></svg>
+			<svg class="w-5 h-5 text-white nav-icon transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="1.5" d="M4 7h16M4 12h10M4 17h16"/></svg>
 		</button>
 	</div>
 
@@ -29,10 +29,17 @@
 
 <style>
 	#nav.scrolled {
-		background: rgba(250,249,246,0.9);
+		background: rgba(250,249,246,0.95);
 		backdrop-filter: blur(16px);
 		border-bottom: 1px solid rgba(0,0,0,0.05);
 	}
+	#nav.scrolled .nav-logo { color: #171717; }
+	#nav.scrolled .nav-dot { color: #7a8a60; }
+	#nav.scrolled .nav-link { color: #a3a3a3; }
+	#nav.scrolled .nav-link:hover { color: #171717; }
+	#nav.scrolled .nav-cta { background: #171717; color: #fff; }
+	#nav.scrolled .nav-cta:hover { background: #333; }
+	#nav.scrolled .nav-icon { color: #404040; }
 </style>
 
 <script>
