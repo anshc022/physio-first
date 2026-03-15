@@ -33,55 +33,117 @@ const cards = [
 ];
 ---
 
-<section class="py-24 lg:py-32 bg-white" id="process">
-	<div class="max-w-5xl mx-auto px-6">
+<section class="bg-white" id="process">
+	<div class="max-w-5xl mx-auto px-6 pt-24 lg:pt-32">
 		<div class="text-center mb-16" data-animate>
 			<p class="text-[11px] tracking-[0.25em] uppercase text-olive-500 font-medium mb-4">Process</p>
 			<h2 class="font-display text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight">
 				How it works.
 			</h2>
 		</div>
+	</div>
 
-		<!-- Stacked cards: each card gets sticky and stacks with offset -->
-		<div class="stacked-section">
+	<!-- Stacked cards with scroll-linked reveal -->
+	<div class="stack-container relative" id="stack-container">
+		<div class="stack-sticky max-w-5xl mx-auto px-6">
 			{cards.map((c, i) => (
-				<div class="stacked-spacer" style={`height: ${i === 0 ? '0' : '45vh'}`}>
-					<div
-						class:list={['stacked-card sticky rounded-2xl p-8 md:p-12 shadow-lg', c.color]}
-						style={`top: ${80 + i * 50}px; z-index: ${10 + i};`}
-						data-animate data-delay={String(i * 80)}
-					>
-						<div class="flex items-start justify-between mb-6">
-							<span class:list={['font-mono text-sm font-semibold', c.accent]}>{c.num}</span>
-							<div class="w-10 h-10 rounded-full border border-current opacity-30 flex items-center justify-center">
-								<span class:list={['text-base', c.dark ? 'text-white' : 'text-neutral-500']}>→</span>
-							</div>
+				<div
+					class:list={['stack-card rounded-2xl p-8 md:p-12 shadow-lg absolute left-6 right-6', c.color]}
+					data-card-index={String(i)}
+					style={`top: ${i * 50}px; z-index: ${10 + i};`}
+				>
+					<div class="flex items-start justify-between mb-6">
+						<span class:list={['font-mono text-sm font-semibold', c.accent]}>{c.num}</span>
+						<div class="w-10 h-10 rounded-full border border-current opacity-30 flex items-center justify-center">
+							<span class:list={['text-base', c.dark ? 'text-white' : 'text-neutral-500']}>→</span>
 						</div>
-						<div>
-							<h3 class:list={['font-display text-2xl md:text-3xl font-bold mb-3', c.dark ? 'text-white' : 'text-neutral-900']}>{c.title}</h3>
-							<p class:list={['text-sm md:text-base leading-relaxed max-w-md', c.dark ? 'text-white/70' : 'text-neutral-500']}>{c.desc}</p>
-						</div>
+					</div>
+					<div>
+						<h3 class:list={['font-display text-2xl md:text-3xl font-bold mb-3', c.dark ? 'text-white' : 'text-neutral-900']}>{c.title}</h3>
+						<p class:list={['text-sm md:text-base leading-relaxed max-w-md', c.dark ? 'text-white/70' : 'text-neutral-500']}>{c.desc}</p>
 					</div>
 				</div>
 			))}
-			<!-- Extra space at bottom so last card stays visible -->
-			<div style="height: 30vh"></div>
 		</div>
 	</div>
+	<div class="pb-24 lg:pb-32"></div>
 </section>
 
 <style>
-	.stacked-card {
-		min-height: 220px;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		transition: box-shadow 0.3s ease;
+	.stack-container {
+		height: 250vh;
 	}
-	/* Mobile: reduce card height and sticky offset */
-	@media (max-width: 768px) {
-		.stacked-card {
-			min-height: 200px;
-		}
+	.stack-sticky {
+		position: sticky;
+		top: 0;
+		height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.stack-card {
+		min-height: 220px;
+		max-width: calc(100% - 3rem);
+		transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+		will-change: transform, opacity;
+	}
+	/* Initially hidden below viewport */
+	.stack-card {
+		transform: translateY(120vh);
+		opacity: 0;
+	}
+	.stack-card.card-visible {
+		opacity: 1;
 	}
 </style>
+
+<script>
+	const container = document.getElementById('stack-container');
+	const cards = document.querySelectorAll('.stack-card') as NodeListOf<HTMLElement>;
+	const totalCards = cards.length;
+
+	if (container && totalCards > 0) {
+		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+		function updateCards() {
+			const rect = container.getBoundingClientRect();
+			const containerH = container.offsetHeight;
+			const scrolled = -rect.top; // how far we've scrolled into the container
+			const scrollRange = containerH - window.innerHeight;
+
+			// Each card gets an equal portion of the scroll range
+			const cardRange = scrollRange / totalCards;
+
+			cards.forEach((card, i) => {
+				const cardStart = i * cardRange;
+				const cardEnd = cardStart + cardRange * 0.6; // card fully in at 60% of its range
+				const progress = Math.max(0, Math.min(1, (scrolled - cardStart) / (cardEnd - cardStart)));
+
+				if (reducedMotion) {
+					// No animation — just show/hide
+					card.style.transform = `translateY(${i * 50}px)`;
+					card.classList.toggle('card-visible', progress > 0);
+					return;
+				}
+
+				if (progress <= 0) {
+					// Below viewport — hidden
+					card.style.transform = `translateY(calc(100vh + 50px))`;
+					card.classList.remove('card-visible');
+				} else if (progress >= 1) {
+					// Fully stacked at its final position
+					card.style.transform = `translateY(${i * 50}px)`;
+					card.classList.add('card-visible');
+				} else {
+					// Animating in from bottom
+					const y = (1 - progress) * (window.innerHeight * 0.8);
+					card.style.transform = `translateY(${i * 50 + y}px)`;
+					card.classList.add('card-visible');
+				}
+			});
+		}
+
+		window.addEventListener('scroll', updateCards, { passive: true });
+		updateCards(); // initial call
+	}
+</script>
