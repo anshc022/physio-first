@@ -35,47 +35,53 @@ const cards = [
 
 <section class="py-24 lg:py-32 bg-white" id="process">
 	<div class="max-w-5xl mx-auto px-6">
-		<div class="text-center mb-20" data-animate>
+		<div class="text-center mb-16" data-animate>
 			<p class="text-[11px] tracking-[0.25em] uppercase text-olive-500 font-medium mb-4">Process</p>
 			<h2 class="font-display text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight">
 				How it works.
 			</h2>
 		</div>
 
-		<!-- Stacked cards container -->
-		<div class="stacked-cards-wrap relative">
+		<!-- Stacked cards: each card gets sticky and stacks with offset -->
+		<div class="stacked-section">
 			{cards.map((c, i) => (
-				<div
-					class:list={['stacked-card sticky rounded-2xl p-8 md:p-12 min-h-[260px] md:min-h-[300px] flex flex-col justify-between shadow-lg', c.color]}
-					style={`top: ${100 + i * 40}px; z-index: ${10 + i};`}
-					data-animate data-delay={String(i * 60)}
-				>
-					<div class="flex items-start justify-between mb-6">
-						<span class:list={['font-mono text-sm font-semibold', c.accent]}>{c.num}</span>
-						<div class="w-10 h-10 rounded-full border border-current opacity-30 flex items-center justify-center">
-							<span class:list={['text-base', c.dark ? 'text-white' : 'text-neutral-500']}>→</span>
+				<div class="stacked-spacer" style={`height: ${i === 0 ? '0' : '45vh'}`}>
+					<div
+						class:list={['stacked-card sticky rounded-2xl p-8 md:p-12 shadow-lg', c.color]}
+						style={`top: ${80 + i * 50}px; z-index: ${10 + i};`}
+						data-animate data-delay={String(i * 80)}
+					>
+						<div class="flex items-start justify-between mb-6">
+							<span class:list={['font-mono text-sm font-semibold', c.accent]}>{c.num}</span>
+							<div class="w-10 h-10 rounded-full border border-current opacity-30 flex items-center justify-center">
+								<span class:list={['text-base', c.dark ? 'text-white' : 'text-neutral-500']}>→</span>
+							</div>
 						</div>
-					</div>
-					<div>
-						<h3 class:list={['font-display text-2xl md:text-3xl font-bold mb-3', c.dark ? 'text-white' : 'text-neutral-900']}>{c.title}</h3>
-						<p class:list={['text-sm md:text-base leading-relaxed max-w-md', c.dark ? 'text-white/70' : 'text-neutral-500']}>{c.desc}</p>
+						<div>
+							<h3 class:list={['font-display text-2xl md:text-3xl font-bold mb-3', c.dark ? 'text-white' : 'text-neutral-900']}>{c.title}</h3>
+							<p class:list={['text-sm md:text-base leading-relaxed max-w-md', c.dark ? 'text-white/70' : 'text-neutral-500']}>{c.desc}</p>
+						</div>
 					</div>
 				</div>
 			))}
+			<!-- Extra space at bottom so last card stays visible -->
+			<div style="height: 30vh"></div>
 		</div>
 	</div>
 </section>
 
 <style>
-	.stacked-cards-wrap {
-		/* enough height so each card can pin */
-		padding-bottom: 200px;
-	}
 	.stacked-card {
-		/* cards get slightly smaller as you scroll, creating depth */
-		transition: transform 0.15s ease, box-shadow 0.3s ease;
+		min-height: 220px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		transition: box-shadow 0.3s ease;
 	}
-	.stacked-card + .stacked-card {
-		margin-top: -180px;
+	/* Mobile: reduce card height and sticky offset */
+	@media (max-width: 768px) {
+		.stacked-card {
+			min-height: 200px;
+		}
 	}
 </style>
