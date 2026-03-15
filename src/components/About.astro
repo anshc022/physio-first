@@ -1,58 +1,108 @@
 ---
+const skills = [
+	'Manual Therapy',
+	'Electrotherapy',
+	'Therapeutic Exercise',
+	'Posture Correction',
+	'Gait Training',
+	'Rehab Planning',
+];
+
+const milestones = [
+	{ num: '6', label: 'Month Internship' },
+	{ num: '500+', label: 'Clinical Hours' },
+	{ num: '4', label: 'Specializations' },
+];
 ---
 
-<section id="about" class="py-24 lg:py-32">
-	<div class="max-w-5xl mx-auto px-6">
-		<div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-			<!-- Photo with clip reveal -->
-			<div data-animate-left data-delay="100">
-				<div class="relative overflow-hidden rounded-2xl">
-					<div data-clip-reveal>
-						<img src="/muskan-doctor.jpg" alt="Dr. Muskan Kumari — Physiotherapist"
+<section id="about" class="relative overflow-hidden">
+	<!-- Top: Full-width dark band with quote -->
+	<div class="bg-neutral-900 py-20 lg:py-28">
+		<div class="max-w-5xl mx-auto px-6">
+			<div class="grid lg:grid-cols-12 gap-8 items-end">
+				<div class="lg:col-span-7" data-animate>
+					<p class="text-[11px] tracking-[0.3em] uppercase text-olive-400 font-medium mb-6">About Me</p>
+					<h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-[1.1]" data-split>
+						Recovery should happen where you feel safest.
+					</h2>
+				</div>
+				<div class="lg:col-span-5 lg:text-right" data-animate data-delay="200">
+					<p class="text-neutral-400 text-[15px] leading-relaxed max-w-sm lg:ml-auto">
+						Professional physiotherapy at your doorstep. Evidence-based, personalized, and built around your life.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Middle: Photo + Bio asymmetric layout -->
+	<div class="max-w-5xl mx-auto px-6 py-16 lg:py-24">
+		<div class="grid lg:grid-cols-12 gap-8 lg:gap-12">
+			<!-- Photo — offset upward into the dark band -->
+			<div class="lg:col-span-5 lg:-mt-32 relative z-10" data-animate-left data-delay="100">
+				<div class="relative">
+					<div class="overflow-hidden rounded-2xl shadow-2xl" data-clip-reveal>
+						<img src="/muskan-doctor.jpg" alt="Muskan Kumari — Physiotherapist"
 							class="w-full object-cover aspect-[3/4] img-zoom" loading="lazy" />
 					</div>
-					<!-- Floating credential card -->
-					<div class="absolute -bottom-3 -right-3 sm:bottom-4 sm:right-4 bg-white rounded-xl shadow-xl px-5 py-4 border border-neutral-100 card-lift" data-animate-scale data-delay="500">
-						<p class="text-[10px] text-neutral-400 tracking-wider uppercase">Qualification</p>
-						<p class="font-display font-bold text-neutral-900 text-sm mt-0.5">BPT — Integral University</p>
-						<p class="text-[10px] text-olive-500 mt-1">Lucknow, 2026</p>
+					<!-- Experience badge -->
+					<div class="absolute -bottom-4 -left-2 sm:-left-4 bg-olive-600 text-white rounded-xl px-5 py-3.5 shadow-lg" data-animate-scale data-delay="600">
+						<p class="font-display text-2xl font-bold leading-none">BPT</p>
+						<p class="text-olive-100 text-[10px] tracking-wider uppercase mt-1">Integral University</p>
 					</div>
 				</div>
 			</div>
 
-			<!-- Content -->
-			<div data-animate-right data-delay="200">
-				<p class="text-[11px] tracking-[0.25em] uppercase text-olive-500 font-medium mb-5">About Me</p>
+			<!-- Bio content -->
+			<div class="lg:col-span-7 flex flex-col justify-center" data-animate-right data-delay="200">
+				<div class="lg:pl-4">
+					<h3 class="font-display text-xl md:text-2xl font-bold text-neutral-900 mb-5 tracking-tight">
+						Muskan Kumari
+					</h3>
 
-				<h2 class="font-display text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight leading-tight mb-6" data-split>
-					I believe recovery should happen where you feel safest.
-				</h2>
+					<div class="space-y-4 text-neutral-500 leading-[1.85] text-[15px] mb-8">
+						<p>
+							I graduated with a Bachelor of Physiotherapy from Integral University, Lucknow. My six-month rotatory internship covered orthopedics, neurology, cardiopulmonary, and geriatric rehabilitation — each rotation sharpening a different clinical lens.
+						</p>
+						<p>
+							Every treatment plan starts with listening. Your condition, your goals, your timeline. I don't believe in cookie-cutter protocols — just focused, one-on-one care designed to get you moving again, at your pace.
+						</p>
+					</div>
 
-				<div class="space-y-4 text-neutral-500 leading-[1.8] text-[15px] mb-10">
-					<p>
-						I'm Muskan Kumari, a physiotherapist based in Lucknow with a Bachelor of Physiotherapy from Integral University. My six months of clinical training spanned orthopedics, neurology, cardiopulmonary, and geriatric care.
-					</p>
-					<p>
-						Every treatment plan starts with listening. Your condition, your goals, your pace. No cookie-cutter exercises — just focused, one-on-one care tailored to get you moving again.
-					</p>
+					<!-- Skills as horizontal pills -->
+					<div class="flex flex-wrap gap-2 mb-10">
+						{skills.map((s, i) => (
+							<span class="text-xs font-medium text-neutral-600 bg-neutral-100 px-4 py-2 rounded-full border border-neutral-200/50 hover:bg-olive-50 hover:text-olive-700 hover:border-olive-200 transition-all duration-300 cursor-default" data-animate data-delay={String(350 + i * 50)}>
+								{s}
+							</span>
+						))}
+					</div>
+
+					<!-- CTA -->
+					<a href="#booking" class="magnetic-btn inline-flex items-center gap-2 text-sm font-semibold text-neutral-900 group" data-animate data-delay="700">
+						<span class="border-b border-neutral-900 pb-0.5 group-hover:border-olive-500 group-hover:text-olive-600 transition-colors">Book a consultation</span>
+						<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+					</a>
 				</div>
+			</div>
+		</div>
+	</div>
 
-				<!-- Skills grid -->
-				<div class="grid grid-cols-2 gap-3">
-					{[
-						'Manual Therapy',
-						'Electrotherapy',
-						'Therapeutic Exercise',
-						'Posture Correction',
-						'Gait Training',
-						'Rehab Planning',
-					].map((s, i) => (
-						<div class="flex items-center gap-2.5 text-sm text-neutral-600" data-animate data-delay={String(300 + i * 60)}>
-							<div class="w-1.5 h-1.5 bg-olive-400 rounded-full flex-shrink-0"></div>
-							{s}
-						</div>
-					))}
-				</div>
+	<!-- Bottom: Stats strip -->
+	<div class="border-t border-neutral-200">
+		<div class="max-w-5xl mx-auto px-6">
+			<div class="grid grid-cols-3 divide-x divide-neutral-200">
+				{milestones.map((m, i) => (
+					<div class="py-10 lg:py-14 text-center" data-animate data-delay={String(i * 120)}>
+						<p class="font-display text-3xl md:text-4xl font-bold text-neutral-900">
+							{m.num.includes('+')
+								? <span><span data-count={m.num.replace('+','')} data-suffix="+">0</span></span>
+								: <span data-count={m.num}>0</span>
+							}
+						</p>
+						<p class="text-[11px] text-neutral-400 tracking-wider uppercase mt-2">{m.label}</p>
+					</div>
+				))}
 			</div>
 		</div>
 	</div>
