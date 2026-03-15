@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://physio-first.vercel.app/sitemap.xml
