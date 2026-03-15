@@ -17,7 +17,21 @@ const { title } = Astro.props;
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body class="bg-stone-50 text-neutral-800 font-sans antialiased">
+<body class="bg-stone-50 text-neutral-800 font-sans antialiased overflow-x-hidden">
+	<!-- Scroll progress bar -->
+	<div id="scroll-progress" class="fixed top-0 left-0 h-[2px] bg-olive-500 z-[60] origin-left" style="transform:scaleX(0)"></div>
+
+	<!-- Custom cursor (desktop only) -->
+	<div id="cursor" class="hidden md:block fixed w-5 h-5 border border-olive-500/50 rounded-full pointer-events-none z-[100] mix-blend-difference" style="transform:translate(-50%,-50%)"></div>
+	<div id="cursor-dot" class="hidden md:block fixed w-1.5 h-1.5 bg-olive-400 rounded-full pointer-events-none z-[100] mix-blend-difference" style="transform:translate(-50%,-50%)"></div>
+
+	<!-- Preloader -->
+	<div id="preloader" class="fixed inset-0 z-[200] bg-neutral-900 flex items-center justify-center transition-opacity duration-700">
+		<div class="text-center">
+			<p class="font-display text-3xl font-bold text-white preload-text" style="clip-path:inset(0 100% 0 0)">MK<span class="text-olive-400">.</span></p>
+		</div>
+	</div>
+
 	<slot />
 </body>
 </html>
@@ -27,23 +41,138 @@ const { title } = Astro.props;
 		background: rgba(122,138,96,0.2);
 	}
 
-	/* Single animation class */
+	html {
+		scroll-behavior: smooth;
+	}
+
+	/* Fade up animation */
 	[data-animate] {
 		opacity: 0;
-		transform: translateY(30px);
-		transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+		transform: translateY(40px);
+		transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
 	}
 	[data-animate].in-view {
 		opacity: 1;
 		transform: none;
 	}
 
+	/* Fade left */
+	[data-animate-left] {
+		opacity: 0;
+		transform: translateX(-50px);
+		transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+	}
+	[data-animate-left].in-view {
+		opacity: 1;
+		transform: none;
+	}
+
+	/* Fade right */
+	[data-animate-right] {
+		opacity: 0;
+		transform: translateX(50px);
+		transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+	}
+	[data-animate-right].in-view {
+		opacity: 1;
+		transform: none;
+	}
+
+	/* Scale reveal */
+	[data-animate-scale] {
+		opacity: 0;
+		transform: scale(0.9);
+		transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+	}
+	[data-animate-scale].in-view {
+		opacity: 1;
+		transform: none;
+	}
+
+	/* Image clip reveal */
+	[data-clip-reveal] {
+		clip-path: inset(0 100% 0 0);
+		transition: clip-path 1.2s cubic-bezier(0.77,0,0.175,1);
+	}
+	[data-clip-reveal].in-view {
+		clip-path: inset(0 0 0 0);
+	}
+
+	/* Text char split */
+	.split-char {
+		display: inline-block;
+		opacity: 0;
+		transform: translateY(100%);
+		transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1);
+	}
+	.split-char.revealed {
+		opacity: 1;
+		transform: none;
+	}
+
+	/* Counter animation */
+	[data-count] {
+		font-variant-numeric: tabular-nums;
+	}
+
+	/* Magnetic button hover */
+	.magnetic-btn {
+		transition: transform 0.3s cubic-bezier(0.33,1,0.68,1);
+	}
+
+	/* Smooth image zoom */
+	.img-zoom {
+		transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
+	}
+	.group:hover .img-zoom {
+		transform: scale(1.08);
+	}
+
+	/* Card lift */
+	.card-lift {
+		transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease;
+	}
+	.card-lift:hover {
+		transform: translateY(-6px);
+		box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+	}
+
+	/* Cursor expand on hover */
+	.cursor-grow { cursor: none; }
+
 	@media (prefers-reduced-motion: reduce) {
-		[data-animate] { opacity: 1; transform: none; transition: none; }
+		[data-animate], [data-animate-left], [data-animate-right], [data-animate-scale] { opacity: 1; transform: none; transition: none; }
+		[data-clip-reveal] { clip-path: none; transition: none; }
+		.split-char { opacity: 1; transform: none; transition: none; }
 	}
 </style>
 
 <script>
+	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	/* ---- Preloader ---- */
+	const preloader = document.getElementById('preloader');
+	const preloadText = document.querySelector('.preload-text') as HTMLElement;
+	if (preloader && preloadText) {
+		preloadText.style.transition = 'clip-path 0.8s cubic-bezier(0.77,0,0.175,1)';
+		preloadText.style.clipPath = 'inset(0 0 0 0)';
+		setTimeout(() => {
+			preloader.style.opacity = '0';
+			setTimeout(() => { preloader.style.display = 'none'; }, 700);
+		}, 1200);
+	}
+
+	/* ---- Scroll progress ---- */
+	const progressBar = document.getElementById('scroll-progress');
+	if (progressBar) {
+		window.addEventListener('scroll', () => {
+			const h = document.documentElement.scrollHeight - window.innerHeight;
+			const pct = h > 0 ? window.scrollY / h : 0;
+			progressBar.style.transform = `scaleX(${pct})`;
+		}, { passive: true });
+	}
+
+	/* ---- IntersectionObserver for all animation types ---- */
 	const io = new IntersectionObserver((entries) => {
 		entries.forEach(e => {
 			if (e.isIntersecting) {
@@ -52,18 +181,112 @@ const { title } = Astro.props;
 				io.unobserve(e.target);
 			}
 		});
-	}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+	}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-	document.querySelectorAll('[data-animate]').forEach(el => io.observe(el));
+	document.querySelectorAll('[data-animate],[data-animate-left],[data-animate-right],[data-animate-scale],[data-clip-reveal]').forEach(el => io.observe(el));
 
-	/* Parallax hero image */
+	/* ---- Text split reveal ---- */
+	document.querySelectorAll('[data-split]').forEach(el => {
+		const text = el.textContent || '';
+		el.innerHTML = '';
+		text.split('').forEach((char, i) => {
+			const span = document.createElement('span');
+			span.className = 'split-char';
+			span.textContent = char === ' ' ? '\u00A0' : char;
+			span.style.transitionDelay = `${i * 30}ms`;
+			el.appendChild(span);
+		});
+
+		const splitIO = new IntersectionObserver((entries) => {
+			entries.forEach(e => {
+				if (e.isIntersecting) {
+					el.querySelectorAll('.split-char').forEach(c => c.classList.add('revealed'));
+					splitIO.unobserve(e.target);
+				}
+			});
+		}, { threshold: 0.3 });
+		splitIO.observe(el);
+	});
+
+	/* ---- Counter animation ---- */
+	document.querySelectorAll('[data-count]').forEach(el => {
+		const target = parseInt(el.getAttribute('data-count') || '0');
+		const suffix = el.getAttribute('data-suffix') || '';
+		const counterIO = new IntersectionObserver((entries) => {
+			entries.forEach(e => {
+				if (e.isIntersecting) {
+					let current = 0;
+					const step = Math.max(1, Math.floor(target / 40));
+					const interval = setInterval(() => {
+						current = Math.min(current + step, target);
+						el.textContent = current + suffix;
+						if (current >= target) clearInterval(interval);
+					}, 30);
+					counterIO.unobserve(e.target);
+				}
+			});
+		}, { threshold: 0.5 });
+		counterIO.observe(el);
+	});
+
+	/* ---- Custom cursor ---- */
+	if (!reducedMotion && window.innerWidth > 768) {
+		const cursor = document.getElementById('cursor') as HTMLElement;
+		const dot = document.getElementById('cursor-dot') as HTMLElement;
+		let cx = 0, cy = 0, dx = 0, dy = 0;
+
+		document.addEventListener('mousemove', e => {
+			dx = e.clientX; dy = e.clientY;
+			dot.style.left = dx + 'px';
+			dot.style.top = dy + 'px';
+		});
+
+		(function moveCursor() {
+			cx += (dx - cx) * 0.15;
+			cy += (dy - cy) * 0.15;
+			cursor.style.left = cx + 'px';
+			cursor.style.top = cy + 'px';
+			requestAnimationFrame(moveCursor);
+		})();
+
+		// Grow cursor on interactive elements
+		document.querySelectorAll('a, button, .cursor-grow').forEach(el => {
+			el.addEventListener('mouseenter', () => {
+				cursor.style.width = '48px';
+				cursor.style.height = '48px';
+				cursor.style.borderColor = 'rgba(122,138,96,0.3)';
+				cursor.style.transition = 'width 0.3s, height 0.3s, border-color 0.3s';
+			});
+			el.addEventListener('mouseleave', () => {
+				cursor.style.width = '20px';
+				cursor.style.height = '20px';
+				cursor.style.borderColor = 'rgba(122,138,96,0.5)';
+			});
+		});
+	}
+
+	/* ---- Parallax hero ---- */
 	const parallaxImg = document.querySelector('.parallax-img') as HTMLElement;
-	if (parallaxImg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+	if (parallaxImg && !reducedMotion) {
 		window.addEventListener('scroll', () => {
 			const y = window.scrollY;
 			if (y < window.innerHeight * 1.2) {
-				parallaxImg.style.transform = `scale(1.1) translateY(${y * 0.3}px)`;
+				parallaxImg.style.transform = `scale(1.1) translateY(${y * 0.25}px)`;
 			}
 		}, { passive: true });
 	}
+
+	/* ---- Magnetic buttons ---- */
+	document.querySelectorAll('.magnetic-btn').forEach(btn => {
+		const el = btn as HTMLElement;
+		el.addEventListener('mousemove', (e: MouseEvent) => {
+			const rect = el.getBoundingClientRect();
+			const x = e.clientX - rect.left - rect.width / 2;
+			const y = e.clientY - rect.top - rect.height / 2;
+			el.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+		});
+		el.addEventListener('mouseleave', () => {
+			el.style.transform = 'translate(0,0)';
+		});
+	});
 </script>

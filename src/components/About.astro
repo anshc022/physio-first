@@ -4,24 +4,27 @@
 <section id="about" class="py-24 lg:py-32">
 	<div class="max-w-5xl mx-auto px-6">
 		<div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-			<!-- Photo -->
-			<div data-animate>
-				<div class="relative">
-					<img src="/muskan-doctor.jpg" alt="Dr. Muskan Kumari — Physiotherapist"
-						class="w-full rounded-2xl object-cover aspect-[3/4]" loading="lazy" />
-					<!-- Small floating credential card -->
-					<div class="absolute -bottom-4 -right-4 bg-white rounded-xl shadow-lg px-5 py-4 border border-neutral-100">
-						<p class="text-xs text-neutral-400 tracking-wider uppercase">Qualification</p>
-						<p class="font-display font-bold text-neutral-900 mt-0.5">BPT — Integral University</p>
+			<!-- Photo with clip reveal -->
+			<div data-animate-left data-delay="100">
+				<div class="relative overflow-hidden rounded-2xl">
+					<div data-clip-reveal>
+						<img src="/muskan-doctor.jpg" alt="Dr. Muskan Kumari — Physiotherapist"
+							class="w-full object-cover aspect-[3/4] img-zoom" loading="lazy" />
+					</div>
+					<!-- Floating credential card -->
+					<div class="absolute -bottom-3 -right-3 sm:bottom-4 sm:right-4 bg-white rounded-xl shadow-xl px-5 py-4 border border-neutral-100 card-lift" data-animate-scale data-delay="500">
+						<p class="text-[10px] text-neutral-400 tracking-wider uppercase">Qualification</p>
+						<p class="font-display font-bold text-neutral-900 text-sm mt-0.5">BPT — Integral University</p>
+						<p class="text-[10px] text-olive-500 mt-1">Lucknow, 2026</p>
 					</div>
 				</div>
 			</div>
 
 			<!-- Content -->
-			<div data-animate data-delay="150">
+			<div data-animate-right data-delay="200">
 				<p class="text-[11px] tracking-[0.25em] uppercase text-olive-500 font-medium mb-5">About Me</p>
 
-				<h2 class="font-display text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight leading-tight mb-6">
+				<h2 class="font-display text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight leading-tight mb-6" data-split>
 					I believe recovery should happen where you feel safest.
 				</h2>
 
@@ -43,8 +46,8 @@
 						'Posture Correction',
 						'Gait Training',
 						'Rehab Planning',
-					].map(s => (
-						<div class="flex items-center gap-2.5 text-sm text-neutral-600">
+					].map((s, i) => (
+						<div class="flex items-center gap-2.5 text-sm text-neutral-600" data-animate data-delay={String(300 + i * 60)}>
 							<div class="w-1.5 h-1.5 bg-olive-400 rounded-full flex-shrink-0"></div>
 							{s}
 						</div>
