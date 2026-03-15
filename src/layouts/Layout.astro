@@ -1,9 +1,8 @@
 ---
 interface Props {
-	title?: string;
+	title: string;
 }
-
-const { title = 'PhysioFirst | Physiotherapist in Lucknow' } = Astro.props;
+const { title } = Astro.props;
 ---
 
 <!doctype html>
@@ -11,79 +10,49 @@ const { title = 'PhysioFirst | Physiotherapist in Lucknow' } = Astro.props;
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta name="description" content="Professional physiotherapy care delivered to your doorstep in Lucknow. Home visits, post-surgery rehab, sports injury recovery by Dr. Muskan, BPT." />
-	<meta name="keywords" content="physiotherapist lucknow, home physiotherapy, BPT, sports injury, orthopedic rehab, neurological rehab" />
-
-	<!-- Fonts -->
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
+	<meta name="description" content="Muskan Kumari — Physiotherapist in Lucknow. Home visit physiotherapy, post-surgery rehab, sports injury, neurological care. Book an appointment." />
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 	<title>{title}</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body class="bg-white text-gray-900 font-sans antialiased overflow-x-hidden">
+<body class="bg-stone-50 text-neutral-800 font-sans antialiased">
 	<slot />
-
-	<style is:global>
-		body {
-			font-family: 'Inter', system-ui, -apple-system, sans-serif;
-		}
-
-		/* Scroll animations */
-		[data-animate] {
-			opacity: 0;
-			transform: translateY(24px);
-			transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-						transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-		}
-		[data-animate].visible {
-			opacity: 1;
-			transform: translateY(0);
-		}
-
-		/* Smooth scroll behavior */
-		html {
-			scroll-behavior: smooth;
-		}
-
-		/* Selection color */
-		::selection {
-			background: rgba(13, 148, 136, 0.15);
-		}
-
-		/* Custom scrollbar */
-		::-webkit-scrollbar {
-			width: 6px;
-		}
-		::-webkit-scrollbar-track {
-			background: transparent;
-		}
-		::-webkit-scrollbar-thumb {
-			background: rgba(0,0,0,0.15);
-			border-radius: 3px;
-		}
-		::-webkit-scrollbar-thumb:hover {
-			background: rgba(0,0,0,0.3);
-		}
-	</style>
-
-	<script>
-		// Intersection Observer for scroll animations
-		const observer = new IntersectionObserver((entries) => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting) {
-					const el = entry.target as HTMLElement;
-					const delay = parseInt(el.dataset.delay || '0');
-					setTimeout(() => el.classList.add('visible'), delay);
-					observer.unobserve(el);
-				}
-			});
-		}, {
-			threshold: 0.1,
-			rootMargin: '0px 0px -50px 0px'
-		});
-
-		document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
-	</script>
 </body>
 </html>
+
+<style is:global>
+	::selection {
+		background: rgba(122,138,96,0.2);
+	}
+
+	/* Single animation class */
+	[data-animate] {
+		opacity: 0;
+		transform: translateY(30px);
+		transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+	}
+	[data-animate].in-view {
+		opacity: 1;
+		transform: none;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		[data-animate] { opacity: 1; transform: none; transition: none; }
+	}
+</style>
+
+<script>
+	const io = new IntersectionObserver((entries) => {
+		entries.forEach(e => {
+			if (e.isIntersecting) {
+				const delay = parseInt(e.target.getAttribute('data-delay') || '0');
+				setTimeout(() => e.target.classList.add('in-view'), delay);
+				io.unobserve(e.target);
+			}
+		});
+	}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+	document.querySelectorAll('[data-animate]').forEach(el => io.observe(el));
+</script>

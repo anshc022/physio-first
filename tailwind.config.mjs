@@ -4,27 +4,25 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['Inter', 'system-ui', 'sans-serif'],
-				heading: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+				sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+				display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
 			},
 			colors: {
-				brand: {
-					50: '#f0fdf9',
-					100: '#d5f5ec',
-					200: '#a8ebd7',
-					300: '#6dd8bb',
-					400: '#38be9c',
-					500: '#1a9f82',
-					600: '#0f7f6a',
-					700: '#0e6656',
-					800: '#105146',
-					900: '#11433b',
+				olive: {
+					50: '#f6f7f4',
+					100: '#e8ebe2',
+					200: '#d4d9c8',
+					300: '#b5bea1',
+					400: '#97a37d',
+					500: '#7a8a60',
+					600: '#5f6d4a',
+					700: '#4a563b',
+					800: '#3d4632',
+					900: '#343c2c',
 				},
-				warm: {
-					50: '#fdfaf6',
-					100: '#f5efe6',
-					200: '#ede3d3',
-				},
+			},
+			letterSpacing: {
+				'tightest': '-0.04em',
 			},
 		},
 	},

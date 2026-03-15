@@ -1,87 +1,67 @@
 ---
 const services = [
 	{
-		num: '01',
 		title: 'Home Visit Physiotherapy',
-		desc: 'Treatment at your doorstep. I bring professional equipment and personalized care to your home.',
-		img: '/images/home-visit.png',
-		featured: true,
+		desc: 'Professional treatment at your doorstep — equipment, expertise, and personalized care delivered to your home.',
+		tag: 'Most Requested',
 	},
 	{
-		num: '02',
 		title: 'Post-Surgery Rehabilitation',
-		desc: 'Structured recovery programs after joint replacement, ACL repair, and spinal procedures.',
-		img: '/images/ortho-rehab.png',
+		desc: 'Structured recovery after joint replacement, ACL repair, spinal surgery, and fracture fixation.',
 	},
 	{
-		num: '03',
 		title: 'Back & Neck Pain',
-		desc: 'Manual therapy, posture correction, and targeted exercises for chronic and acute pain relief.',
-		img: '/images/ortho-rehab.png',
+		desc: 'Manual therapy, mobilization, and corrective exercises for chronic and acute musculoskeletal pain.',
 	},
 	{
-		num: '04',
 		title: 'Sports Injury Recovery',
-		desc: 'Return-to-sport rehabilitation with progressive strengthening and functional training.',
-		img: '/images/ortho-rehab.png',
+		desc: 'Return-to-play rehabilitation with progressive strengthening and sport-specific reconditioning.',
 	},
 	{
-		num: '05',
 		title: 'Geriatric Mobility',
-		desc: 'Balance training, fall prevention, and gentle exercise for senior independence.',
-		img: '/images/geriatric-care.png',
+		desc: 'Fall prevention, balance training, and functional exercises to maintain senior independence.',
 	},
 	{
-		num: '06',
 		title: 'Neurological Rehab',
-		desc: 'Stroke recovery, nerve injury treatment, and movement re-education programs.',
-		img: '/images/neuro-rehab.png',
+		desc: 'Stroke recovery, nerve palsy management, and motor re-education for neurological conditions.',
 	},
 ];
 ---
 
-<section id="services" class="py-28 bg-stone-50">
-	<div class="max-w-6xl mx-auto px-6">
-		<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16" data-animate="fade-up">
-			<div>
-				<p class="text-sm tracking-[0.2em] uppercase text-teal-600 font-medium mb-4">Services</p>
-				<h2 class="text-4xl md:text-5xl font-medium text-gray-900 tracking-tight">
+<section id="services" class="py-28 bg-white">
+	<div class="max-w-5xl mx-auto px-6">
+		<div class="grid md:grid-cols-12 gap-12 md:gap-16 mb-16">
+			<div class="md:col-span-3" data-animate>
+				<p class="text-[11px] tracking-[0.25em] uppercase text-olive-500 font-medium sticky top-24">Services</p>
+			</div>
+			<div class="md:col-span-9" data-animate data-delay="100">
+				<h2 class="font-display text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight leading-tight">
 					What I treat.
 				</h2>
 			</div>
-			<p class="text-gray-400 max-w-sm text-sm leading-relaxed">
-				Available for clinic and home visits across Lucknow. Each treatment plan is personalized.
-			</p>
 		</div>
 
-		<!-- Service list (editorial style) -->
-		<div class="space-y-0 border-t border-gray-200">
-			{services.map((service) => (
+		<div class="max-w-5xl mx-auto">
+			{services.map((s, i) => (
 				<a href="#booking"
-					class="group grid md:grid-cols-12 gap-6 py-8 border-b border-gray-200 items-center hover:bg-white hover:px-6 rounded-xl transition-all duration-500 cursor-pointer service-row"
-					data-animate="fade-up">
-					<div class="md:col-span-1">
-						<span class="text-xs text-gray-300 font-mono">{service.num}</span>
+					class="group grid md:grid-cols-12 gap-4 md:gap-8 py-7 border-b border-neutral-100 items-baseline hover:border-neutral-300 transition-colors cursor-pointer"
+					data-animate data-delay={String(i * 60)}>
+					<div class="md:col-span-1 text-[11px] text-neutral-300 font-mono">
+						{String(i + 1).padStart(2, '0')}
 					</div>
 					<div class="md:col-span-4">
-						<h3 class="text-xl font-medium text-gray-900 group-hover:text-teal-600 transition-colors duration-300">
-							{service.title}
+						<h3 class="text-lg font-display font-semibold text-neutral-900 group-hover:text-olive-600 transition-colors">
+							{s.title}
 						</h3>
-						{service.featured && (
-							<span class="inline-block mt-2 text-[10px] tracking-[0.15em] uppercase bg-teal-50 text-teal-600 px-2.5 py-1 rounded">
-								Most requested
-							</span>
+						{s.tag && (
+							<span class="inline-block mt-1.5 text-[10px] tracking-wider uppercase text-olive-600 bg-olive-50 px-2 py-0.5 rounded">{s.tag}</span>
 						)}
 					</div>
-					<div class="md:col-span-5">
-						<p class="text-sm text-gray-400 leading-relaxed">{service.desc}</p>
+					<div class="md:col-span-6">
+						<p class="text-sm text-neutral-400 leading-relaxed">{s.desc}</p>
 					</div>
-					<div class="md:col-span-2 flex justify-end">
-						<div class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-teal-600 group-hover:border-teal-600 transition-all duration-300">
-							<svg class="w-4 h-4 text-gray-400 group-hover:text-white group-hover:translate-x-0.5 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-							</svg>
-						</div>
+					<div class="md:col-span-1 hidden md:flex justify-end">
+						<svg class="w-4 h-4 text-neutral-200 group-hover:text-olive-500 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
 					</div>
 				</a>
 			))}

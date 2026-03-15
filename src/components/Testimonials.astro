@@ -1,53 +1,48 @@
 ---
-const testimonials = [
+const reviews = [
 	{
-		text: 'The home visit service was a blessing. Professional, punctual, and my recovery has been much faster than expected.',
+		text: 'The home visit service was a blessing. Professional, punctual, and my recovery has been much faster than I expected after knee replacement.',
 		name: 'Rajesh K.',
-		label: 'Post knee replacement',
+		context: 'Post knee replacement',
 	},
 	{
-		text: 'After months of pain, I finally found relief. The treatment plan was thorough and the exercises really helped.',
+		text: 'After months of constant back pain, I finally found lasting relief. The treatment plan was thorough and the exercises genuinely helped.',
 		name: 'Sunita M.',
-		label: 'Chronic back pain',
+		context: 'Chronic back pain',
 	},
 	{
-		text: 'Got back on the field in 6 weeks. The rehab program was tough but effective.',
+		text: 'Got back on the field in six weeks. The rehab program was demanding but incredibly effective. Highly recommend for athletes.',
 		name: 'Amit S.',
-		label: 'Sports injury recovery',
+		context: 'Ankle sports injury',
 	},
 	{
-		text: 'My father regained his confidence in walking again. The patience and care shown during every session was remarkable.',
+		text: 'My father regained his confidence walking independently again. The patience and attentiveness during every session was remarkable.',
 		name: 'Geeta D.',
-		label: 'Geriatric care',
+		context: 'Geriatric care — father',
 	},
 ];
 ---
 
-<section id="testimonials" class="py-28 bg-stone-50">
-	<div class="max-w-6xl mx-auto px-6">
-		<div class="mb-16" data-animate="fade-up">
-			<p class="text-sm tracking-[0.2em] uppercase text-teal-600 font-medium mb-4">Testimonials</p>
-			<h2 class="text-4xl md:text-5xl font-medium text-gray-900 tracking-tight">
-				Patient stories.
-			</h2>
+<section id="testimonials" class="py-28">
+	<div class="max-w-5xl mx-auto px-6">
+		<div class="grid md:grid-cols-12 gap-12 md:gap-16 mb-16">
+			<div class="md:col-span-3" data-animate>
+				<p class="text-[11px] tracking-[0.25em] uppercase text-olive-500 font-medium sticky top-24">Reviews</p>
+			</div>
+			<div class="md:col-span-9" data-animate data-delay="100">
+				<h2 class="font-display text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight leading-tight">
+					What patients say.
+				</h2>
+			</div>
 		</div>
 
-		<div class="grid md:grid-cols-2 gap-6">
-			{testimonials.map((t, i) => (
-				<div class="bg-white rounded-2xl p-8 md:p-10 border border-gray-100 hover:shadow-md transition-all duration-500"
-					data-animate="fade-up" data-delay={String(i * 100)}>
-					<svg class="w-8 h-8 text-gray-200 mb-6" fill="currentColor" viewBox="0 0 24 24">
-						<path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/>
-					</svg>
-					<p class="text-gray-600 leading-relaxed mb-8">{t.text}</p>
-					<div class="flex items-center gap-3">
-						<div class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center">
-							<span class="text-sm font-medium text-gray-500">{t.name[0]}</span>
-						</div>
-						<div>
-							<p class="text-sm font-medium text-gray-900">{t.name}</p>
-							<p class="text-xs text-gray-400">{t.label}</p>
-						</div>
+		<div class="grid md:grid-cols-2 gap-px bg-neutral-100 rounded-xl overflow-hidden">
+			{reviews.map((r, i) => (
+				<div class="bg-stone-50 p-8 md:p-10" data-animate data-delay={String(i * 80)}>
+					<p class="text-neutral-600 leading-[1.75] mb-8 text-[15px]">"{r.text}"</p>
+					<div>
+						<p class="text-sm font-medium text-neutral-900">{r.name}</p>
+						<p class="text-xs text-neutral-400 mt-0.5">{r.context}</p>
 					</div>
 				</div>
 			))}
